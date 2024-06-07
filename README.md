@@ -40,7 +40,7 @@ En conclusion, POZOS a besoin d’agilité sur sa ferme logicielle.
 
 ## Infrastructure
 
-Pour ce POC,  j’utiliserez qu’une seule machine sur laquelle un docker est installé.
+Pour ce POC,  j’utiliserais qu’une seule machine sur laquelle un docker est installé.
 
 La construction et le déploiement seront effectués sur cette machine.
 
