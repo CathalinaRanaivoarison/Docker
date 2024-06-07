@@ -56,7 +56,7 @@ student_list comporte deux modules :
 - le premier module est une API REST (avec authentification de base nécessaire) qui envoie la liste de souhaits de l’étudiant basée sur un fichier JSON
 - Le deuxième module est une application web écrite en HTML + PHP qui permet à l’utilisateur final d’obtenir une liste d’étudiants
 
-Votre travail consiste à construire un conteneur pour chaque module et à les faire interagir les uns avec les autres
+Le travail consiste à construire un conteneur pour chaque module et à les faire interagir les uns avec les autres
 
 Le code source de l’application peut être trouvé \[ici\](https://github.com/diranetafen/student-list.git "here")
 
