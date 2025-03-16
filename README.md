@@ -5,6 +5,9 @@ Ce projet consiste à dockeriser une application simple qui affiche une liste d'
 - Une API Flask qui renvoie la liste des étudiants sous forme de JSON.
 - Une interface Web PHP permettant aux utilisateurs d'interagir avec l'API pour afficher les étudiants.
 
+  ![image](https://github.com/user-attachments/assets/1ddc4468-e6eb-44fe-addb-3a20e181f0d5)
+
+
 L'objectif de ce projet est de démontrer la gestion d'une infrastructure Docker et de mettre en place des bonnes pratiques DevOps, telles que l'automatisation, la séparation des responsabilités, et l'utilisation de Docker pour déployer l'application de manière scalable et fiable.
 
 ## 🚀 Objectifs de l'exercice
