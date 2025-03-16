@@ -2,7 +2,7 @@
 
 📝 ## Description
 Ce projet consiste à dockeriser une application simple qui affiche une liste d'étudiants avec leur âge. L'application est constituée de deux modules :
-** Une API Flask ** qui renvoie la liste des étudiants sous forme de JSON.
+**Une API Flask ** qui renvoie la liste des étudiants sous forme de JSON.
 ** Une interface Web PHP ** permettant aux utilisateurs d'interagir avec l'API pour afficher les étudiants.
 
 L'objectif de ce projet est de démontrer la gestion d'une infrastructure Docker et de mettre en place des bonnes pratiques DevOps, telles que l'automatisation, la séparation des responsabilités, et l'utilisation de Docker pour déployer l'application de manière scalable et fiable.
