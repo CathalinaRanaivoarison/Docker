@@ -1,0 +1,28 @@
+# Utiliser l'image de base Python 3.8
+FROM python:3.8-buster
+
+# Maintainer de l'image
+LABEL maintainer="cathalinaranaivoarison@gmail.com"
+
+# Créer un répertoire pour le projet et y copier les fichiers
+WORKDIR /app
+COPY . /app
+
+# Mettre à jour les packages et installer les dépendances nécessaires
+RUN apt-get update -y && apt-get install -y \
+    python-dev python3-dev \
+    libsasl2-dev libldap2-dev libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Installer les dépendances Python à partir de requirements.txt
+RUN pip3 install -r /app/requirements.txt
+
+# Définir le volume pour les données
+VOLUME /app/data
+
+# Exposer le port 5000 pour l'API
+EXPOSE 5000
+
+# Démarrer l'API avec Python
+CMD ["python3", "./student_age.py"]

@@ -1,0 +1,63 @@
+#version: '3'
+services:
+  # Service API
+  api:
+    image: student_api
+    container_name: student_api_container
+    ports:
+      - "5001:5000"  # Expose le port 5000 du container sur le port 5001 de la machine hôte
+    volumes:
+      - ./simple_api/student_age.json:/data/student_age.json  # Monte le fichier JSON pour l'API
+    networks:
+      - student_network
+    restart: always
+
+  # Service Web
+  website:
+    image: php:apache
+    container_name: website_container
+    environment:
+      USERNAME: toto  # Nom d'utilisateur pour l'authentification
+      PASSWORD: python  # Mot de passe pour l'authentification
+    volumes:
+      - ./website:/var/www/html  # Monte les fichiers PHP du site web
+    ports:
+      - "8081:80"  # Expose le port 8080 pour accéder au site web
+    depends_on:
+      - api  # Assure que le service API démarre avant le service Web
+    networks:
+      - student_network
+    restart: always
+
+  # Service Docker Registry
+  registry:
+    image: registry:2
+    container_name: registry
+    ports:
+      - "5002:5000"  # Le registre écoute sur le port 5000 à l'intérieur du conteneur et 5002 sur l'hôte
+    volumes:
+      - registry_data:/var/lib/registry  # Persister les données du registre
+    restart: always
+    networks:
+      - student_network
+
+  # Service Harbor (Interface Web pour visualiser les images)
+  harbor:
+    image: goharbor/harbor-core:v2.3.3
+    container_name: harbor
+    ports:
+      - "8083:8080" # Interface web de Harbor
+    depends_on:
+      - registry
+    restart: always
+    networks:
+      - student_network
+
+
+networks:
+  student_network:
+    driver: bridge  # Crée un réseau interne pour les services
+
+volumes:
+  registry_data:
+

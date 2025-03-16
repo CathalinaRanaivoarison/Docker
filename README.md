@@ -24,7 +24,7 @@ L'objectif de ce projet est de démontrer la gestion d'une infrastructure Docker
 - **Docker Registry** : Pour stocker les images Docker.
 
 ## 📂 Structure du répertoire
-
+![alt text](image-3.png)
 
 ## 🚀 Instructions de déploiement
 1. **Cloner le dépôt** :
@@ -37,37 +37,43 @@ L'objectif de ce projet est de démontrer la gestion d'une infrastructure Docker
 2. **Construire l'image Docker pour l'API** : Dans le fichier `Dockerfile`, l’image sera construite avec la commande suivante :
 
     ```bash
-    docker build -t student-api .
+    docker build -t student_api ./simple_api
+    docker run -d -p 5001:5000 -v $(pwd)/simple_api/student_age.json:/data/student_age.json --name student_api_container student_api
+    curl -u toto:python -X GET http://localhost:5001/pozos/api/v1.0/get_student_ages
+
+
     ```
+
+    ![alt text](image.png)
 
 3. **Lancer les services avec Docker Compose** : Utilise `docker-compose` pour déployer l’application (API et Web) :
 
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 
 4. **Accéder à l'application** :
 
-    - API : [http://localhost:5000/pozos/api/v1.0/get_student_ages](http://localhost:5000/pozos/api/v1.0/get_student_ages)
-    - Web : [http://localhost:80](http://localhost:80)
+    - API : [http://localhost:5000/pozos/api/v1.0/get_student_ages](http://localhost:5001/pozos/api/v1.0/get_student_ages)
+    - Web : [http://localhost:80](http://localhost:8081)
 
 5. **Test de l’API** : Pour tester si l'API fonctionne correctement, utilise la commande `curl` :
 
     ```bash
-    curl -u toto:python -X GET http://localhost:5000/pozos/api/v1.0/get_student_ages
+    curl -u toto:python -X GET http://localhost:5001/pozos/api/v1.0/get_student_ages
     ```
 
 6. **Docker Registry** : Déployer un Docker Registry local pour stocker les images :
 
     ```bash
-    docker run -d -p 5000:5000 --name registry registry:2
+    docker run -d -p 5002:5000 --name registry registry:2
     ```
 
     Puis pousser l'image API dans le registre :
 
     ```bash
-    docker tag student-api localhost:5000/student-api
-    docker push localhost:5000/student-api
+    docker tag student-api localhost:5002/student_api
+    docker push localhost:5002/student_api
     ```
 
 ## 🔧 Explications de la mise en œuvre
@@ -79,7 +85,9 @@ L'objectif de ce projet est de démontrer la gestion d'une infrastructure Docker
 
 ## 📸 Captures d'écran
 - **Image 1** : Capture d'écran de l’interface Web avec la liste des étudiants.
+![alt text](image-1.png)
 - **Image 2** : Test de l’API avec `curl`.
+![alt text](image-2.png)
 
 ## 🛠 Livraison
 Ce projet est livré avec :
