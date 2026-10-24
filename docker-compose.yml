@@ -1,63 +1,32 @@
-#version: '3'
 services:
-  # Service API
   api:
-    image: student_api
-    container_name: student_api_container
-    ports:
-      - "5001:5000"  # Expose le port 5000 du container sur le port 5001 de la machine hôte
+    image: student-list-api:v1
+    build: ./simple_api
+    container_name: api
     volumes:
-      - ./simple_api/student_age.json:/data/student_age.json  # Monte le fichier JSON pour l'API
+      - ./simple_api/student_age.json:/data/student_age.json
+    ports:
+      - "5001:5000"
     networks:
-      - student_network
-    restart: always
+      - student_list_network
+    restart: unless-stopped
 
-  # Service Web
   website:
     image: php:apache
-    container_name: website_container
+    container_name: website
     environment:
-      USERNAME: toto  # Nom d'utilisateur pour l'authentification
-      PASSWORD: python  # Mot de passe pour l'authentification
+      - USERNAME=toto
+      - PASSWORD=python
     volumes:
-      - ./website:/var/www/html  # Monte les fichiers PHP du site web
-    ports:
-      - "8081:80"  # Expose le port 8080 pour accéder au site web
+      - ./website:/var/www/html
     depends_on:
-      - api  # Assure que le service API démarre avant le service Web
-    networks:
-      - student_network
-    restart: always
-
-  # Service Docker Registry
-  registry:
-    image: registry:2
-    container_name: registry
+      - api
     ports:
-      - "5002:5000"  # Le registre écoute sur le port 5000 à l'intérieur du conteneur et 5002 sur l'hôte
-    volumes:
-      - registry_data:/var/lib/registry  # Persister les données du registre
-    restart: always
+      - "8081:80"
     networks:
-      - student_network
-
-  # Service Harbor (Interface Web pour visualiser les images)
-  harbor:
-    image: goharbor/harbor-core:v2.3.3
-    container_name: harbor
-    ports:
-      - "8083:8080" # Interface web de Harbor
-    depends_on:
-      - registry
-    restart: always
-    networks:
-      - student_network
-
+      - student_list_network
+    restart: unless-stopped
 
 networks:
-  student_network:
-    driver: bridge  # Crée un réseau interne pour les services
-
-volumes:
-  registry_data:
-
+  student_list_network:
+    driver: bridge
