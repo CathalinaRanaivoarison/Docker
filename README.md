@@ -10,7 +10,6 @@
 > **En bref :** j'ai transformé une application monolithique, déployée à la main sur un seul serveur, en une infrastructure **découplée, reproductible et versionnée** avec Docker : une image sur mesure pour l'API, un déploiement complet en une commande grâce à Docker Compose, et un **registre d'images privé** auto-hébergé.
 
 **Auteur :** Cathalina — [rnvscathalina22@gmail.com](mailto:rnvscathalina22@gmail.com)
-**Contexte :** projet pratique de la formation DevOps EazyTraining
 
 ---
 
@@ -95,7 +94,7 @@ flowchart LR
 ## 📂 Structure du dépôt
 
 ```
-student-list/
+Docker/
 ├── README.md
 ├── docker-compose.yml          # Déploiement de l'application (api + website)
 ├── simple_api/
@@ -250,7 +249,7 @@ docker compose up -d
 docker compose ps
 ```
 
-![Conteneurs en cours d'exécution](images/DC.png)
+![Conteneurs en cours d'exécution](images/DCR.png)
 
 ### Résultat
 
@@ -350,7 +349,7 @@ C'est la partie où j'ai le plus appris.
 
 ```bash
 git https://github.com/CathalinaRanaivoarison/Docker.git
-cd student-list
+cd Docker
 
 # Application
 docker compose up -d --build
